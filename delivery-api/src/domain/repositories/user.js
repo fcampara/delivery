@@ -11,8 +11,6 @@ module.exports = () => {
           if(err) {
             logger.error(JSON.stringify(err))
             getError[err.code]
-          } else {
-            
           }
         })
       })
