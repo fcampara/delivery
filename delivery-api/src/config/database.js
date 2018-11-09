@@ -1,6 +1,8 @@
 const logger = require('../http/middlewares/logger').Logger
 const mongoose = require(`mongoose`)
-const uri = '<URI_DATABASE>'
+const Dotenv = require('dotenv')
+Dotenv.config()
+const uri = process.env.DB_URI
 mongoose.connect(uri, {
     useNewUrlParser: true,
     useCreateIndex: true
