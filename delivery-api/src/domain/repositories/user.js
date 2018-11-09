@@ -1,6 +1,5 @@
 const User = require('../models/user')
-const logger = require('../../http/middlewares/logger').Logger
-const getError = require('../../http/middlewares/error/MongoDB')
+const getErrorMongoDB = require('../../http/middlewares/error/MongoDB')
 
 module.exports = () => {
   class UserRepository {
@@ -8,17 +7,24 @@ module.exports = () => {
       return new Promise((resolve, reject) => {
         const user = new User(data)
         user.save(err => {
-          if(err) {
-            logger.error(JSON.stringify(err))
-            getError[err.code]
-          }
+          !!err ? reject(getErrorMongoDB(err)) : resolve({success: true, status: 200, message: 'Saved success!'})
         })
       })
     }
 
     static async getAll () {
-      User.find({}, (err, data) => {
-        return data
+      return new Promise((resolve, reject) => {
+        User.find({}, (err, data) => {
+          !!err ? reject(getErrorMongoDB(err)) : resolve({success: true, status: 200, message: 'Load success!', data})
+        })
+      })
+    }
+
+    static async deleteById ({_id: id}) {
+      return new Promise((resolve, reject) => {
+        User.deleteOne({ _id: id }, err => {
+          !!err ? reject(getErrorMongoDB(err)) : resolve({success: true, status: 200, message: 'Deleted success!'})
+        })
       })
     }
   }
