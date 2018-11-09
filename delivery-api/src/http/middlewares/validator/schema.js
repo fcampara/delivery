@@ -17,5 +17,12 @@ module.exports = {
     })
 
     return schema
+  },
+  getByIdUser: () => {
+    const schema = Joi.object().required().keys({
+      _id: Joi.string().required()
+    })
+
+    return schema
   }
 }
