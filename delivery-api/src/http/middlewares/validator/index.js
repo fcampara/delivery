@@ -8,9 +8,9 @@ module.exports = {
       Joi.validate(data, selectedSchema, { abortEarly: false },(err, data) => {
         if (err) {
           const error = getError(err)
-          reject({ success: false, error })
+          reject({ success: false, error, status: 406 })
         } else {
-          resolve({ success: true, error: null, data })
+          resolve({ success: true, error: null, data, status: 200 })
         }
       })
     })

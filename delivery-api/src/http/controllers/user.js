@@ -4,16 +4,34 @@
   class UserController {
     static create (req, res) {
       validator.check('createUser', req.body).then(({data}) => {
-        UserRepositories().save(data)
-        res.state(200).json()
-      }).catch(err => {
-        res.status(400).json(err)
+        UserRepositories().save(data).then(({status, ...data}) => {
+          res.status(status).json(data)
+        }).catch(({status, ...err}) => {
+          res.status(status).json(err)
+        })
+      }).catch(({status, ...err}) => {
+        res.status(status).json(err)
       })
     }
 
     static getAll (req, res) {
-      const teste = UserRepositories().getAll()
-      res.status(200).json(teste)
+      UserRepositories().getAll().then(({status, ...data}) => {
+        res.status(status).json(data)
+      }).catch(({status, ...err}) => {
+        res.status(status).json(err)
+      })
+    }
+
+    static delete (req, res) {
+      validator.check('deleteUser', req.body).then(({data}) => {
+        UserRepositories().deleteById(data).then(({status, ...data}) => {
+          res.status(status).json(data)
+        }).catch(({status, ...err}) => {
+          res.status(200).json(err)
+        })
+      }).catch(({status, ...err}) => {
+        res.status(status).json(err)
+      })
     }
   }
 
