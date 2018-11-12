@@ -5,7 +5,7 @@
   "main": "src/loader.js",
   "scripts": {
     "kill": "kill $(sudo netstat -lpn | grep :3000 | awk '{split($7, a, \"/\"); print a[1]}')",
-    "start": "cp .env.dev .env && nodemon",
+    "start": "cp .env.dev .env && nodemon ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -27,6 +27,6 @@
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.5"
+    "nodemon": "^1.18.6"
   }
 }
