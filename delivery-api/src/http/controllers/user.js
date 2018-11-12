@@ -16,7 +16,6 @@
 
     static getAll (req, res) {
       UserRepositories().getAll().then(({status, ...data}) => {
-        console.log('getting users');
         res.status(status).json(data)
       }).catch(({status, ...err}) => {
         res.status(status).json(err)
