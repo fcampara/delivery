@@ -22,6 +22,18 @@
       })
     }
 
+    static getById (req, res) {
+      validator.check('getByIdUser', req.params).then(({data}) => {
+        UserRepositories().getById(data).then(({status, ...data}) => {
+          res.status(status).json(data)
+        }).catch(({status, ...err}) => {
+          res.status(status).json(err)
+        })
+      }).catch(({status, ...err}) => {
+        res.status(status).json(err)
+      })
+    }
+
     static delete (req, res) {
       validator.check('deleteUser', req.body).then(({data}) => {
         UserRepositories().deleteById(data).then(({status, ...data}) => {
