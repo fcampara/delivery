@@ -1,6 +1,7 @@
 const Joi = require('joi')
 
 module.exports = {
+
   createUser: () => {
     const schema = Joi.object().required().keys({
       email: Joi.string().email().required(),
@@ -11,6 +12,7 @@ module.exports = {
 
     return schema
   },
+
   deleteUser: () => {
     const schema = Joi.object().required().keys({
       _id: Joi.string().required()
@@ -18,6 +20,7 @@ module.exports = {
 
     return schema
   },
+
   getByIdUser: () => {
     const schema = Joi.object().required().keys({
       _id: Joi.string().required()
@@ -25,4 +28,5 @@ module.exports = {
 
     return schema
   }
+
 }
