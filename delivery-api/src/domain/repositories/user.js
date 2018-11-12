@@ -1,14 +1,18 @@
 const User = require('../models/user')
 const getErrorMongoDB = require('../../http/middlewares/error/MongoDB')
+const bcrypt = require('bcrypt')
 
 module.exports = () => {
   class UserRepository {
 
     static async save (data) {
       return new Promise((resolve, reject) => {
-        const user = new User(data)
-        user.save(err => {
-          !!err ? reject(getErrorMongoDB(err)) : resolve({success: true, status: 200, message: 'Saved success!'})
+        bcrypt.hash(data.password, 10).then((hash) => {
+          const user = new User(data)
+          user.password = hash
+          user.save(err => {
+            !!err ? reject(getErrorMongoDB(err)) : resolve({success: true, status: 200, message: 'Saved success!'})
+          })
         })
       })
     }
@@ -21,10 +25,24 @@ module.exports = () => {
       })
     }
 
+    static async getByFilter () {
+      let [query] = arguments
+
+      return new Promise((resolve, reject) => {
+        User.findByFilter(query, (err, data) => {
+          User.countDocuments(User.findByFilter(query) , (err, count) => {
+            !!err ? reject(getErrorMongoDB(err)) : resolve({success: true, status: 200, message: 'Filter success!', count, data})
+          })
+        })
+      })
+    }
+
     static async getAll () {
       return new Promise((resolve, reject) => {
-        User.find({}, (err, data) => {
-          !!err ? reject(getErrorMongoDB(err)) : resolve({success: true, status: 200, message: 'Load success!', data})
+        User.find({}).skip(0).limit(10).exec((err, data) => {
+          User.estimatedDocumentCount({}, (err, count) => {
+            !!err ? reject(getErrorMongoDB(err)) : resolve({success: true, status: 200, message: 'Load success!', count, data})
+          })
         })
       })
     }

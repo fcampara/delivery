@@ -5,6 +5,7 @@ const UserController = require('../controllers/user')
 // GET
 router
   .get('/', UserController().getAll)
+  .get('/filter', UserController().getByFilter)
   .get('/:_id', UserController().getById)
 
 // POST

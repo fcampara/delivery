@@ -1,5 +1,6 @@
  const validator = require('../middlewares/validator/index')
  const UserRepositories = require ('../../domain/repositories/user')
+
  module.exports = () => {
   class UserController {
     static create (req, res) {
@@ -25,6 +26,18 @@
     static getById (req, res) {
       validator.check('getByIdUser', req.params).then(({data}) => {
         UserRepositories().getById(data).then(({status, ...data}) => {
+          res.status(status).json(data)
+        }).catch(({status, ...err}) => {
+          res.status(status).json(err)
+        })
+      }).catch(({status, ...err}) => {
+        res.status(status).json(err)
+      })
+    }
+
+    static getByFilter (req, res) {
+      validator.check('getByFilter', req.query).then(({data}) => {
+        UserRepositories().getByFilter(data).then(({status, ...data}) => {
           res.status(status).json(data)
         }).catch(({status, ...err}) => {
           res.status(status).json(err)

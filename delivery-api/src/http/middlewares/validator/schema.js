@@ -2,31 +2,32 @@ const Joi = require('joi')
 
 module.exports = {
 
-  createUser: () => {
-    const schema = Joi.object().required().keys({
+  createUser: () => (
+    Joi.object().required().keys({
       email: Joi.string().email().required(),
       username: Joi.string().alphanum().min(3).max(30).required(),
       password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
-      abortEarly: true
     })
+  ),
 
-    return schema
-  },
-
-  deleteUser: () => {
-    const schema = Joi.object().required().keys({
+  deleteUser: () => (
+    Joi.object().required().keys({
       _id: Joi.string().required()
     })
+  ),
 
-    return schema
-  },
-
-  getByIdUser: () => {
-    const schema = Joi.object().required().keys({
+  getByIdUser: () => (
+    Joi.object().required().keys({
       _id: Joi.string().required()
     })
+  ),
 
-    return schema
-  }
+  getByFilter: () => (
+    Joi.object().required().keys({
+      _id: Joi.string(),
+      email: Joi.string(),
+      username: Joi.string().alphanum().min(3).max(30),
+    })
+  )
 
 }
