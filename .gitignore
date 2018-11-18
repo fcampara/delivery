@@ -1,2 +1,3 @@
-
-delivery-api/src/logs/
+logs
+node_modules
+.env.dev
