@@ -25,6 +25,14 @@ module.exports = () => {
       })
     }
 
+    static async getByUsername (username) {
+      return new Promise((resolve, reject) => {
+        User.findOne({username}, (err, data) => {
+          !!err ? reject(getErrorMongoDB(err)) : resolve({success: true, status: 200, message: 'Find success!', data})
+        })
+      })
+    }
+
     static async getByFilter () {
       let [query] = arguments
 
