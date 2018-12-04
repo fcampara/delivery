@@ -1,6 +1,6 @@
-const jwt = require("jsonwebtoken")
 const JwtStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
+
 const Dotenv = require('dotenv')
 Dotenv.config()
 

@@ -6,6 +6,6 @@ router.get('/', (req, res) => {
     res.send('Welcome example login in mongo DB')
 })
 
-router.use('/user', passport.authenticate('jwt', {session: false}), require('./user'))
+router.use('/user', passport.authenticate('jwt', { session: false }), require('./user'))
 router.use('/auth', require('./auth'))
 module.exports = router
