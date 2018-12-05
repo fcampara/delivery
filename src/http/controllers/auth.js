@@ -1,5 +1,4 @@
 const UserRepositories = require ('../../domain/repositories/user')
-const passport = require('passport')
 const bcrypt = require('bcrypt')
 const Dotenv = require('dotenv')
 const jwt = require('jsonwebtoken')
@@ -41,10 +40,7 @@ module.exports = () => {
     }
 
     static google (req, res) {
-      passport.authenticate('google', () => {
-        console.log('oi')
-        res.redirect('/')
-      })
+      console.log('dentro do google?')
     }
   }
 
