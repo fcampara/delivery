@@ -48,7 +48,7 @@
     }
 
     static delete (req, res) {
-      validator.check('deleteUser', req.body).then(({data}) => {
+      validator.check('deleteUser', req.params).then(({data}) => {
         UserRepositories().deleteById(data).then(({status, ...data}) => {
           res.status(status).json(data)
         }).catch(({status, ...err}) => {

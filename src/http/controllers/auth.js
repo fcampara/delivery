@@ -1,7 +1,7 @@
 const UserRepositories = require ('../../domain/repositories/user')
-const jwt = require("jsonwebtoken")
 const bcrypt = require('bcrypt')
 const Dotenv = require('dotenv')
+const jwt = require('jsonwebtoken')
 Dotenv.config()
 
 module.exports = () => {
@@ -15,7 +15,7 @@ module.exports = () => {
           bcrypt.compare(password, user.password, (err, isValid) => {
             if (isValid) {
               const token =  jwt.sign({ username }, process.env.SECRET, {
-                expiresIn: 120
+                expiresIn: process.env.EXPIRESIN
               })
               res.status(200).json({
                 message: 'Success Login',
@@ -37,6 +37,10 @@ module.exports = () => {
       }).catch(({status, ...err}) => {
         res.status(status).json(err)
       })
+    }
+
+    static google (req, res) {
+      console.log('dentro do google?')
     }
   }
 

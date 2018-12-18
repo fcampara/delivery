@@ -14,6 +14,6 @@ router
 
 // DELETE
 router
-  .delete('/', UserController().delete)
+  .delete('/:_id', UserController().delete)
 
 module.exports = router
