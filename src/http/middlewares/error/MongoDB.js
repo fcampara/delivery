@@ -1,7 +1,6 @@
-const logger = require('../logger').Logger
 
 getError = (err) => {
-  logger.error(JSON.stringify(err))
+  console.log(JSON.stringify(err))
   const error = errors(err)
   return { success: false, ...error }
 }
