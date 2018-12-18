@@ -8,10 +8,6 @@ router
   .get('/filter', UserController().getByFilter)
   .get('/:_id', UserController().getById)
 
-// POST
-router
-  .post('/', UserController().create)
-
 // DELETE
 router
   .delete('/:_id', UserController().delete)
